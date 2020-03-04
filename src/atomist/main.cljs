@@ -35,8 +35,8 @@
      (cond
 
        (contains? (:data request) :Repo)
-       ((-> (api/finished :message "adding standard branch protection rules to new Repo"
-                          :success "adding standard branch protection rules to new Repo")
+       ((-> (api/finished :message "converging after Repo event"
+                          :send-status (fn [request] (gstring/format "added %d rules to the Repo" (count (:plan request)))))
             (converge-rules)
             (api/extract-github-token)
             (api/create-ref-from-repo-event)
@@ -44,16 +44,11 @@
             (api/add-skill-config :Rules :RepoFilter)) request)
 
        (contains? (:data request) :OnSchedule)
-       ((-> (api/finished :message "handling scheduled sync" :success "successfully handled OnSchedule event")
+       ((-> (api/finished :message "handling scheduled sync"
+                          :send-status (fn [request] "schedule would trigger a plan containing %d rules to converge" (count (:plan request))))
             (api/repo-iterator (converge-rules
                                 (fn [r]
-                                  (go
-                                   (try
-                                     (log/info "first send the labels and refs " (:ref r))
-                                     (select-keys r [:labels :ref])
-                                     (catch :default ex
-                                       (log/error ex "failed to lookup")
-                                       {}))))))
+                                  (select-keys r [:rules :ref :plan]))))
             (check-rules)
             (api/add-skill-config :Labels :RepoFilter)) request)
 
