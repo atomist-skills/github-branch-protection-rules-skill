@@ -1,0 +1,50 @@
+{:description
+ "Maintain a standard set of branch protection rules across Repositories",
+ :category ["DEV_EX"],
+ :package {:use "atomist/package-cljs-skill"},
+ :repository
+ "https://github.com/atomist-skills/github-branch-protection-rules-skill",
+ :license "Apache-2.0",
+ :homepage
+ "https://github.com/atomist-skills/github-branch-protection-rules-skill",
+ :displayName "github branch protection rules skill",
+ :name "atomist/branch-protection-rules",
+ :long_description
+ "GitHub allows each Repository to maintain it's own set of branch protection rules.\n- when the skill detects a new Repos, the standard rules are configured\n- existing Repos are periodically checked to ensure that the standard set of Labels are present.\n",
+ :icon
+ "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSIxNjAiIHZpZXdCb3g9IjAgMCA4IDE2Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04IDR2MUgwVjRoOHpNMCA4aDhWN0gwdjF6bTAgM2g4di0xSDB2MXoiLz48L3N2Zz4=",
+ :title "GitHub Branch Protection Rules",
+ :author "Atomist",
+ :dispatch "multiple",
+ :iconUrl
+ "https://raw.githubusercontent.com/cljs/logo/master/cljs.png",
+ :runtime
+ {:name "nodejs10",
+  :entry_point "eventhandler",
+  :memory 1024,
+  :timeout 120},
+ :homepageUrl
+ "https://github.com/atomist-skills/github-branch-protection-rules-skill",
+ :version "0.1.0",
+ :parameters
+ [{:repoFilter
+   {:description
+    "Select repositories that should have the standard set of rules",
+    :displayName "Repo Filter",
+    :name "RepoFilter",
+    :required false}}
+  {:schedule
+   {:description
+    "Periodically validate that all standard Rules are configured on your Repos",
+    :displayName "Cron Schedule",
+    :name "schedule",
+    :default "0 */6 * * *",
+    :required true}}],
+ :namespace "atomist",
+ :artifacts
+ {:gcf
+  [{:name "package-cljs-skill",
+    :entryPoint "eventhandler",
+    :memory 512, 
+    :runtime "nodejs10", 
+    :timeout 60}]}}

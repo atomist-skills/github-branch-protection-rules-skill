@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "author": "jim@atomist.com",
   "scripts": {
-    "build:watch": "shadow-cljs watch script",
-    "build": "shadow-cljs release release"
+    "build:watch": "shadow-cljs watch dev",
+    "build": "shadow-cljs release release",
+    "bundle": "bundle",
+    "skill": "npm run build && npm run bundle"
   },
   "dependencies": {
+    "@atomist/api-cljs": "^0.4.62",
     "@atomist/automation-client": "^1.7.0",
     "@atomist/sdm": "^1.8.0-dynamic-goals.20191115162021",
     "@atomist/sdm-core": "^1.7.0",
@@ -23,7 +26,9 @@
     "url-regex": "^5.0.0"
   },
   "devDependencies": {
+    "@atomist/skill-bundler": "^0.1.13",
     "shadow-cljs": "^2.8.69",
     "source-map-support": "0.5.9"
-  }
+  },
+  "main": "node_modules/@atomist/api-cljs/app.js"
 }
