@@ -25,7 +25,7 @@ skill:
     - when the skill detects a new Repos, the standard rules are configured
     - existing Repos are periodically checked to ensure that the standard set of Labels are present.
   category:
-  - DEV_EX
+    - DEV_EX
   license: Apache-2.0
   homepage: https://github.com/atomist-skills/github-branch-protection-rules-skill
   repository: https://github.com/atomist-skills/github-branch-protection-rules-skill
