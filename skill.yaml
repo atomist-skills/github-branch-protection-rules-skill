@@ -1,0 +1,64 @@
+namespace: atomist
+name: github-branch-protection-rules-skill
+displayName: GitHub Branch Protection Rules Skill
+description: Share branch protection rules across Repos
+license: unknown
+author: atomist
+triggers:
+  - OnAnyPush
+resourceProviders:
+  - name: github
+    description: GitHub
+    typeName: GitHubAppResourceProvider
+    minRequired: 1
+    maxAllowed: 1
+  - name: chat
+    displayName: Chat
+    typeName: ChatProvider
+    description: Chat
+    minRequired: 0
+    maxAllowed: 1
+commands:
+  - name: sync
+    description: check all the Repo configs
+    pattern: ^sync repo config.*$
+iconUrl: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+homepageUrl: "https://github.com/atomist-skills/github-repo-config-skill"
+parameters:
+  - string:
+      description: list the Repo topic you use to set this policy
+      displayName: Choose Topic
+      name: topic
+      placeHolder: topicname
+      required: true
+  - string:
+      description: enable branch protection rules for branches matching this pattern
+      displayName: Branch pattern for configuring branch protection rules
+      name: branchPattern
+      placeHolder:
+      required: false
+  - string:
+      description: branch protection rule
+      name: branchProtectionRule
+      lineStyle: multiple
+      placeHolder: '{"required_status_checks": {"strict": true, "contexts": ["lein test","github-secret-scanner-skill"]}}'
+      required: false
+  - schedule:
+      description: check regularly
+      displayName: schedule
+      name: schedule
+      defaultValue: 0 */6 * * *
+      placeHolder: 0 */6 * * *
+      required: false
+  - repoFilter:
+      description: Select repositories that should have the standard set of Labels
+      displayName: Repo Filter
+      name: RepoFilter
+      required: false
+artifacts:
+  gcf:
+    - entryPoint: eventhandler
+      runtime: nodejs10
+      name: do-it-on-node
+      memory: 512
+      timeout: 60
