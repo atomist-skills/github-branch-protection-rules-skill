@@ -21,7 +21,7 @@ resourceProviders:
 commands:
   - name: sync
     description: check all the Repo configs
-    pattern: ^sync repo config.*$
+    pattern: ^sync branch protection rules.*$
 iconUrl: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
 homepageUrl: "https://github.com/atomist-skills/github-repo-config-skill"
 parameters:
@@ -35,17 +35,48 @@ parameters:
       description: enable branch protection rules for branches matching this pattern
       displayName: Branch pattern for configuring branch protection rules
       name: branchPattern
-      placeHolder:
+      placeHolder: "master,main"
+      required: true
+  - boolean:
+      description: Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators.
+      displayName: Enforce Admins
+      name: enforce_admins
       required: false
-  - string:
-      description: branch protection rule
-      name: branchProtectionRule
-      lineStyle: multiple
-      placeHolder: '{"required_status_checks": {"strict": true, "contexts": ["lein test","github-secret-scanner-skill"]}}'
+  - stringArray:
+      name: required_status_checks
+      displayName: Required Status Checks
+      description: Require status checks to pass before merging
       required: false
+  - boolean:
+      name: dismiss_stale_reviews
+      displayName: Dismiss Stale Reviews
+      description: Set to true if you want to automatically dismiss approving reviews when someone pushes a new commit.
+      required: false
+  - boolean:
+      name: require_code_owner_reviews
+      displayName: Require Code Owner Reviews
+      description: Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them.
+      required: false
+  - int:
+      name: required_approving_review_count
+      displayName: Required Aproving Review Count
+      description: Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+      required: false
+  - boolean:
+      name: allow_force_pushes
+      displayName: Allow Force Pushes
+      description: Permits force pushes to the protected branch by anyone with write access to the repository. Set to true to allow force pushes.
+      default: false
+      required: true
+  - boolean:
+      name: required_linear_history
+      displayName: Required Linear History
+      description: Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch.  Your repository must allow squash merging or rebase merging before you can enable a linear commit history.
+      default: false
+      required: true
   - schedule:
       description: check regularly
-      displayName: schedule
+      displayName: Schedule
       name: schedule
       defaultValue: 0 */6 * * *
       placeHolder: 0 */6 * * *
