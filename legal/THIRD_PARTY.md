@@ -1,6 +1,6 @@
-# `@atomist/git-repo-config-skill`
+# `@atomist/github-branch-protection-rules-skill`
 
-This page details all runtime dependencies of `@atomist/git-repo-config-skill`.
+This page details all runtime dependencies of `@atomist/github-branch-protection-rules-skill`.
 
 ## Licenses
 
