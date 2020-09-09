@@ -5,4 +5,4 @@ node_modules/
 .nrepl-port
 .shadow-cljs/
 classes/
-index.js
+.atomist
