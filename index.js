@@ -15,6 +15,7 @@ var configureReviews = function(request) {
 var convergeBranchRules = async function (request, branch, repo) {
   if (
     request.topic &&
+    repo.topics &&
     repo.topics.includes(request.topic) &&
     request.branchPattern &&
     branch.match(new RegExp(request.branchPattern))

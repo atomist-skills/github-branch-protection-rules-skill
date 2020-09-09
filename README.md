@@ -28,6 +28,8 @@ Both the **GitHub** and **Slack** integrations must be configured in order to us
 
 3. **Configure the branch protection rule that you want to share**
 
+    The rules are [documented here](https://developer.github.com/v3/repos/branches/#update-branch-protection).
+
     | Rule                            | description                                                                                                       |
     | :------------------------------ | :---------------------------------------------------------------------------------------------------------------- |
     | enforce_admins                  | Enforce all configured restrictions even for administrators.                                                      |
