@@ -59,4 +59,13 @@ exports.handler = api.handler({
       );
     });
   },
+  OnPullRequest: async (request) => {
+    await request.withRepo(async (repo) => {
+      return await convergeBranchRules(
+        request,
+        request.data.PullRequest[0].baseBranchName,
+        repo
+      );
+    });
+  }
 });

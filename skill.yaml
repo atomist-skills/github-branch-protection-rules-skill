@@ -6,6 +6,7 @@ license: unknown
 author: atomist
 triggers:
   - OnAnyPush
+  - OnPullRequest
 resourceProviders:
   - name: github
     description: GitHub
