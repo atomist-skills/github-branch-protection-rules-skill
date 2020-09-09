@@ -42,25 +42,25 @@ Both the **GitHub** and **Slack** integrations must be configured in order to us
 
 4. **Optionally create a cron schedule**
 
-    Use this to configure the skill to check all of the repositories periodically, instead of
-    only on pushes to the repository.
+Use this to configure the skill to check all of the repositories periodically, instead of
+only on pushes to the repository.
 
-    ![schedule](docs/images/schedule.png)
+![schedule](docs/images/schedule.png)
 
 5. **Select the set of Repos that should have this branch protection rule**
 
-    ![repo-filter](docs/images/repo-filter.png)
+![repo-filter](docs/images/repo-filter.png)
 
 ## How to use Git Check Repo Contents
 
-    All selected repositories will be checked after each Push.  If they are found to be missing the branch protection
-    rule, then it will be configured.
+All selected repositories will be checked after each Push. If they are found to be missing the branch protection
+rule, then it will be configured.
 
-    Users can also interactively kick off this skill using Slack.
+Users can also interactively kick off this skill using Slack.
 
-    ```
-    @atomist sync branch protection rules
-    ```
+```
+@atomist sync branch protection rules
+```
 
 <!---atomist-skill-readme:end--->
 
