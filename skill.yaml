@@ -24,7 +24,7 @@ commands:
     description: check all the Repo configs
     pattern: ^sync branch protection rules.*$
 iconUrl: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-homepageUrl: "https://github.com/atomist-skills/github-repo-config-skill"
+homepageUrl: "https://github.com/atomist-skills/github-branch-protection-rules-skill"
 parameters:
   - string:
       description: list the Repo topic you use to set this policy
