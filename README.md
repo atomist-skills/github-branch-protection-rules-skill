@@ -2,46 +2,63 @@
 
 <!---atomist-skill-readme:start--->
 
-Github Issues allows custom branch protection rules for each Repository. This skill allows teams to configure one standard set
-of rules that will be applied across all Repositories.
+# What it's useful for
 
-## Configuration
+Either on every Push, or a fixed schedule, validate that all Repos have branch protection
+rules configured.
 
----
+# Before you get started
 
-### Name
+Connect and configure these integrations:
 
-Give your configuration of this skill a distinctive name. You might only need one configuration of this skill when
-you use the same set of Issue Labels across all of your Orgs and Repos. However, you can create distinct configurations
-if you have different sets of Labels that you want to use for different sets of Repositories.
+1. **GitHub**
+2. **Slack**
 
-### Standard Labels
+Both the **GitHub** and **Slack** integrations must be configured in order to use this skill.
 
-Configure a set of standard Labels. The labels must be formatted:
+# How to configure
 
-```
-label_name:long description of the label
-```
+1. **Choose a repository topic**
 
-The `label_name` and `description` of the label should be separated by a `:`. The `label_name` itself can not contain a colon.
+    Only repositories with this topic will be configured with this branch protection rule.
 
-### Cron Schedule
+2. **Choose a branch filter**
 
-This skill will periodically check that all labels are synchronized across your team's repositories.
+    Select the set of branches that will be configured with this rule.
 
-### Which repositories
+3. **Configure the branch protection rule that you want to share**
 
-By default, this skill will be enabled for all repositories in all organizations you have connected.
-To restrict the organizations or specific repositories on which the skill will run, you can explicitly
-choose organization(s) and repositories.
+    | Rule                            | description                                                                                                       |
+    | :------------------------------ | :---------------------------------------------------------------------------------------------------------------- |
+    | enforce_admins                  | Enforce all configured restrictions even for administrators.                                                      |
+    | required_status_checks          | Require status checks to pass before merging                                                                      |
+    | dismiss_stale_reviews           | Automatically dismiss any reviews after a new Commit                                                              |
+    | require_code_owner_reviews      | Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them |
+    | required_approving_review_count | Specify the number of reviewers required to approve pull requests.                                                |
+    | allow_force_pushes              | Permits force pushes to the protected branch by anyone with write access to the repository.                       |
+    | required_linear_history         | Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch.               |
 
-## Integrations
+4. **Optionally create a cron schedule**
 
----
+    Use this to configure the skill to check all of the repositories periodically, instead of
+    only on pushes to the repository.
 
-**GitHub**
+    ![schedule](docs/images/schedule.png)
 
-The Atomist GitHub integration must be configured to used this skill. At least one repository must be selected.
+5. **Select the set of Repos that should have this branch protection rule**
+
+    ![repo-filter](docs/images/repo-filter.png)
+
+## How to use Git Check Repo Contents
+
+    All selected repositories will be checked after each Push.  If they are found to be missing the branch protection
+    rule, then it will be configured.
+
+    Users can also interactively kick off this skill using Slack.
+
+    ```
+    @atomist sync branch protection rules
+    ```
 
 <!---atomist-skill-readme:end--->
 
