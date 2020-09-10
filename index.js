@@ -35,21 +35,23 @@ var convergeBranchRules = async function (request, branch, repo) {
   return true;
 };
 
+var scan = async (request) => {
+  // await request.withRepoIterator(async (repo) => {
+  //   return await repo.withBranches(async (branches) => {
+  //     return await Promise.all(branches.map(async branch => {
+  //       console.info(`check ${branch} on ${repo.owner}/${repo.repo}`);
+  //       return await convergeBranchRules(
+  //         request,
+  //         branch,
+  //         repo
+  //       );
+  //     }));
+  //   });
+  // });
+  console.info(JSON.stringify(request));
+};
+
 exports.handler = api.handler({
-  sync: async (request) => {
-    await request.withRepoIterator(async (repo) => {
-      return await repo.withBranches(async (branches) => {
-        return await Promise.all(branches.map(async branch => {
-          console.info(`check ${branch} on ${repo.owner}/${repo.repo}`);
-          return await convergeBranchRules(
-            request,
-            branch,
-            repo
-          );
-        }));
-      });
-    });
-  },
   OnAnyPush: async (request) => {
     await request.withRepo(async (repo) => {
       return await convergeBranchRules(
@@ -67,5 +69,7 @@ exports.handler = api.handler({
         repo
       );
     });
-  }
+  },
+  sync: scan,
+  OnSchedule: scan
 });
