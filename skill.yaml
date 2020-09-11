@@ -68,13 +68,13 @@ parameters:
       displayName: Allow Force Pushes
       description: Permits force pushes to the protected branch by anyone with write access to the repository. Set to true to allow force pushes.
       default: false
-      required: true
+      required: false
   - boolean:
       name: required_linear_history
       displayName: Required Linear History
       description: Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch.  Your repository must allow squash merging or rebase merging before you can enable a linear commit history.
       default: false
-      required: true
+      required: false
   - schedule:
       description: check regularly
       displayName: Schedule
