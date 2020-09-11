@@ -33,20 +33,20 @@ parameters:
       placeHolder: topicname
       required: true
   - string:
-      description: enable branch protection rules for branches matching this pattern
-      displayName: Branch pattern for configuring branch protection rules
+      description: Enable branch protection rules for the branches matching this name or pattern.
+      displayName: Branch name pattern
       name: branchPattern
-      placeHolder: "master,main"
+      placeHolder: "main,default"
       required: true
-  - boolean:
-      description: Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators.
-      displayName: Enforce Admins
-      name: enforce_admins
-      required: false
   - stringArray:
       name: required_status_checks
       displayName: Required Status Checks
-      description: Require status checks to pass before merging
+      description: Specify which status checks must pass before branches can be merged 
+      required: false
+  - boolean:
+      description: Enforce branch protection rules for repostitory administrators. Set to true to enforce required status checks for repository administrators.
+      displayName: Enforce for Administrators
+      name: enforce_admins
       required: false
   - boolean:
       name: dismiss_stale_reviews
@@ -76,7 +76,7 @@ parameters:
       default: false
       required: false
   - schedule:
-      description: check regularly
+      description: Keep repository branch protection configurations current. If set, repository branch protection configurations will be checked and updated to this configuration on the set schedule.
       displayName: Schedule
       name: schedule
       defaultValue: 0 */6 * * *
