@@ -41,7 +41,7 @@ parameters:
   - stringArray:
       name: required_status_checks
       displayName: Required Status Checks
-      description: Specify which status checks must pass before branches can be merged 
+      description: Specify which status checks must pass before branches can be merged
       required: false
   - boolean:
       description: Enforce branch protection rules for repostitory administrators. Set to true to enforce required status checks for repository administrators.
