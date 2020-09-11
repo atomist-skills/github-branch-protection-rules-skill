@@ -38,41 +38,55 @@ parameters:
       name: branchPattern
       placeHolder: "main,default"
       required: true
-  - stringArray:
-      name: required_status_checks
-      displayName: Required Status Checks
-      description: Specify which status checks must pass before branches can be merged
-      required: false
-  - boolean:
-      description: Enforce branch protection rules for repostitory administrators. Set to true to enforce required status checks for repository administrators.
-      displayName: Enforce for Administrators
-      name: enforce_admins
+  - int:
+      name: required_approving_review_count
+      displayName: Require pull request reviews before merging
+      description: Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+      maximum: 6
+      minimum: 1
       required: false
   - boolean:
       name: dismiss_stale_reviews
-      displayName: Dismiss Stale Reviews
+      displayName: "Require pull request reviews: Dismiss Stale Reviews"
       description: Set to true if you want to automatically dismiss approving reviews when someone pushes a new commit.
       required: false
   - boolean:
       name: require_code_owner_reviews
-      displayName: Require Code Owner Reviews
+      displayName: "Require pull request reviews: Require Code Owner Reviews"
       description: Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/) review them.
       required: false
-  - int:
-      name: required_approving_review_count
-      displayName: Required Aproving Review Count
-      description: Specify the number of reviewers required to approve pull requests. Use a number between 1 and 6.
+  - stringArray:
+      name: required_status_checks
+      displayName: Required Status Checks
+      description: Specify which status checks must pass before branches can be merged.  See [github documentation](https://docs.github.com/en/github/administering-a-repository/about-required-status-checks).
       required: false
   - boolean:
-      name: allow_force_pushes
-      displayName: Allow Force Pushes
-      description: Permits force pushes to the protected branch by anyone with write access to the repository. Set to true to allow force pushes.
+      name: required_signed_commits
+      displayName: Require signed commits
+      description: Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch.  Your repository must allow squash merging or rebase merging before you can enable a linear commit history.
       default: false
       required: false
   - boolean:
       name: required_linear_history
       displayName: Required Linear History
       description: Enforces a linear commit Git history, which prevents anyone from pushing merge commits to a branch.  Your repository must allow squash merging or rebase merging before you can enable a linear commit history.
+      default: false
+      required: false
+  - boolean:
+      description: Enforce branch protection rules for repostitory administrators. Set to true to enforce required status checks for repository administrators.
+      displayName: Include administrators
+      name: enforce_admins
+      required: false
+  - boolean:
+      name: allow_force_pushes
+      displayName: Allow force pushes
+      description: Permit force pushes for all users with push access.
+      default: false
+      required: false
+  - boolean:
+      name: allow_deletions
+      displayName: Allow deletions
+      description: Allow users with push access to delete matching branches.
       default: false
       required: false
   - schedule:

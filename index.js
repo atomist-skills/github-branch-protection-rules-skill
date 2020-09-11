@@ -28,7 +28,8 @@ var convergeBranchRules = async (request, repo, branch) => {
          ... {required_pull_request_reviews: configureReviews(request)},
          ... {restrictions: null},
          ... (request.required_linear_history && {required_linear_history: request.required_linear_history}),
-         ... (request.allow_force_pushes && {allow_force_pushes: request.allow_force_pushes})
+         ... (request.allow_force_pushes && {allow_force_pushes: request.allow_force_pushes}),
+         ... (request.allow_deletions && {allow_deletions: request.allow_deletions})
       }
     );
   }
