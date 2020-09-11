@@ -4,17 +4,14 @@
 
 # What it's useful for
 
-Either on every Push, or a fixed schedule, validate that all Repos have branch protection
-rules configured.
+> Stop editing branch protection rules in each repo! Set it or update in one place and all repos are automatically updated.
 
 # Before you get started
 
 Connect and configure these integrations:
 
 1. **GitHub**
-2. **Slack**
-
-Both the **GitHub** and **Slack** integrations must be configured in order to use this skill.
+2. **Slack** (optional)
 
 # How to configure
 

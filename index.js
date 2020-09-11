@@ -32,6 +32,11 @@ var convergeBranchRules = async (request, repo, branch) => {
          ... (request.allow_deletions && {allow_deletions: request.allow_deletions})
       }
     );
+    if (request.required_signed_commits) {
+      await repo.branchRequiresSignedCommits(branch,true);
+    } else {
+      await repo.branchRequiresSignedCommits(branch, false);
+    }
   }
   return true;
 };
