@@ -1,6 +1,6 @@
 var api = require("@atomist/api-cljs/atomist.middleware");
 
-var configureReviews = function(request) {
+var configureReviews = (request) => {
   if (request.required_approving_review_count || request.require_code_owner_reviews || request.dismiss_stale_reviews) { 
     return {
       ... (request.required_approving_review_count && {required_approving_review_count: request.required_approving_review_count}),
@@ -12,7 +12,7 @@ var configureReviews = function(request) {
   }
 };
 
-var convergeBranchRules = async function (request, branch, repo) {
+var convergeBranchRules = async (request, repo, branch) => {
   if (
     request.topic &&
     repo.topics &&
@@ -35,29 +35,13 @@ var convergeBranchRules = async function (request, branch, repo) {
   return true;
 };
 
-var scan = async (request) => {
-  // await request.withRepoIterator(async (repo) => {
-  //   return await repo.withBranches(async (branches) => {
-  //     return await Promise.all(branches.map(async branch => {
-  //       console.info(`check ${branch} on ${repo.owner}/${repo.repo}`);
-  //       return await convergeBranchRules(
-  //         request,
-  //         branch,
-  //         repo
-  //       );
-  //     }));
-  //   });
-  // });
-  console.info(JSON.stringify(request));
-};
-
 exports.handler = api.handler({
   OnAnyPush: async (request) => {
     await request.withRepo(async (repo) => {
       return await convergeBranchRules(
         request,
-        request.data.Push[0].branch,
-        repo
+        repo,
+        request.data.Push[0].branch
       );
     });
   },
@@ -65,11 +49,15 @@ exports.handler = api.handler({
     await request.withRepo(async (repo) => {
       return await convergeBranchRules(
         request,
-        request.data.PullRequest[0].baseBranchName,
-        repo
+        repo,
+        request.data.PullRequest[0].baseBranchName
       );
     });
   },
-  sync: scan,
-  OnSchedule: scan
+  sync: api.scanBranches(async (request, repo, branch) => {
+    return await api.eachConfig(request, async (req) => {
+      return await convergeBranchRules(req, repo, branch);
+    });
+  }),
+  OnSchedule: api.scanBranches(convergeBranchRules)
 });
