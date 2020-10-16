@@ -4,7 +4,8 @@
 
 # What it's useful for
 
-> Stop editing branch protection rules in each repo! Set it or update in one place and all repos are automatically updated.
+> Stop editing branch protection rules in each repo! Set it or update in one
+> place and all repos are automatically updated.
 
 # Before you get started
 
@@ -17,7 +18,8 @@ Connect and configure these integrations:
 
 1. **Choose a repository topic**
 
-    Only repositories with this topic will be configured with this branch protection rule.
+    Only repositories with this topic will be configured with this branch
+    protection rule.
 
 2. **Choose a branch filter**
 
@@ -25,7 +27,8 @@ Connect and configure these integrations:
 
 3. **Configure the branch protection rule that you want to share**
 
-    The rules are [documented here](https://developer.github.com/v3/repos/branches/#update-branch-protection).
+    The rules are
+    [documented here](https://developer.github.com/v3/repos/branches/#update-branch-protection).
 
     | Rule                            | description                                                                                                       |
     | :------------------------------ | :---------------------------------------------------------------------------------------------------------------- |
@@ -39,8 +42,8 @@ Connect and configure these integrations:
 
 4. **Optionally create a cron schedule**
 
-Use this to configure the skill to check all of the repositories periodically, instead of
-only on pushes to the repository.
+Use this to configure the skill to check all of the repositories periodically,
+instead of only on pushes to the repository.
 
 ![schedule](docs/images/schedule.png)
 
@@ -50,8 +53,8 @@ only on pushes to the repository.
 
 ## How to use Git Check Repo Contents
 
-All selected repositories will be checked after each Push. If they are found to be missing the branch protection
-rule, then it will be configured.
+All selected repositories will be checked after each Push. If they are found to
+be missing the branch protection rule, then it will be configured.
 
 Users can also interactively kick off this skill using Slack.
 
@@ -63,8 +66,7 @@ Users can also interactively kick off this skill using Slack.
 
 ---
 
-Created by [Atomist][atomist].
-Need Help? [Join our Slack workspace][slack].
+Created by [Atomist][atomist]. Need Help? [Join our Slack workspace][slack].
 
 [atomist]: https://atomist.com/ "Atomist - How Teams Deliver Software"
 [slack]: https://join.atomist.com/ "Atomist Community Slack"
