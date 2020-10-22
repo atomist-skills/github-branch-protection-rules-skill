@@ -28,13 +28,20 @@ var configureReviews = (request) => {
   }
 };
 
+var checkBranchPattern = (pattern_string, branch) => {
+  return pattern_string.split(",")
+           .map(s => {return new RegExp(s.trim());})
+           .map(re => {return branch.match(re);})
+           .some(match => {return !!match;});
+}
+
 var convergeBranchRules = async (request, repo, branch) => {
   if (
     request.topic &&
     repo.topics &&
     repo.topics.includes(request.topic) &&
     request.branchPattern &&
-    branch.match(new RegExp(request.branchPattern))
+    checkBranchPattern(request.branchPattern, branch)
   ) {
     await repo.branchProtectionRule(
       branch,
