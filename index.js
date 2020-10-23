@@ -29,8 +29,8 @@ var configureReviews = (request) => {
   }
 };
 
-var checkBranchPattern = (pattern_string, branch) => {
-  return mm.isMatch(branch,pattern_string.split(",").map(s => {return s.trim();}));
+var checkBranchPattern = (patterns, branch) => {
+  return mm.isMatch(branch,patterns.map(s => {return s.trim();}));
 }
 
 var convergeBranchRules = async (request, repo, branch) => {
@@ -38,8 +38,8 @@ var convergeBranchRules = async (request, repo, branch) => {
     request.topic &&
     repo.topics &&
     repo.topics.includes(request.topic) &&
-    request.branchPattern &&
-    checkBranchPattern(request.branchPattern, branch)
+    request.branchPatterns &&
+    checkBranchPattern(request.branchPatterns, branch)
   ) {
     await repo.branchProtectionRule(
       branch,

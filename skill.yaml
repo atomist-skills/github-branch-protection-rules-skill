@@ -46,12 +46,13 @@ parameters:
       name: topic
       placeHolder: topicname
       required: true
-  - string:
+  - stringArray:
       description: Enable branch protection rules for the branches matching this name or pattern.
-      displayName: Branch name pattern
-      name: branchPattern
-      placeHolder: "main,default"
+      displayName: Branch name patterns
+      name: branchPatterns
+      placeHolder: "main"
       required: true
+      minRequired: 1
   - int:
       name: required_approving_review_count
       displayName: Require pull request reviews before merging
