@@ -15,6 +15,7 @@
  */
 
 var api = require("@atomist/api-cljs/atomist.middleware");
+var mm = require("micromatch");
 
 var configureReviews = (request) => {
   if (request.required_approving_review_count || request.require_code_owner_reviews || request.dismiss_stale_reviews) { 
@@ -28,11 +29,8 @@ var configureReviews = (request) => {
   }
 };
 
-var checkBranchPattern = (pattern_string, branch) => {
-  return pattern_string.split(",")
-           .map(s => {return new RegExp(s.trim());})
-           .map(re => {return branch.match(re);})
-           .some(match => {return !!match;});
+var checkBranchPattern = (patterns, branch) => {
+  return mm.isMatch(branch,patterns.map(s => {return s.trim();}));
 }
 
 var convergeBranchRules = async (request, repo, branch) => {
@@ -40,8 +38,8 @@ var convergeBranchRules = async (request, repo, branch) => {
     request.topic &&
     repo.topics &&
     repo.topics.includes(request.topic) &&
-    request.branchPattern &&
-    checkBranchPattern(request.branchPattern, branch)
+    request.branchPatterns &&
+    checkBranchPattern(request.branchPatterns, branch)
   ) {
     await repo.branchProtectionRule(
       branch,
