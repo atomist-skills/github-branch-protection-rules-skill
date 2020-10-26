@@ -34,6 +34,9 @@ var checkBranchPattern = (patterns, branch) => {
 }
 
 var convergeBranchRules = async (request, repo, branch) => {
+  console.info(`check branch ${branch} using topic ${request.topic}`);
+  console.info(`repo topics ${repo.topics}`);
+  console.info(`branch patterns ${request.branchPatterns}`);
   if (
     request.topic &&
     repo.topics &&
@@ -41,6 +44,7 @@ var convergeBranchRules = async (request, repo, branch) => {
     request.branchPatterns &&
     checkBranchPattern(request.branchPatterns, branch)
   ) {
+    console.info("branch it");
     await repo.branchProtectionRule(
       branch,
       {
