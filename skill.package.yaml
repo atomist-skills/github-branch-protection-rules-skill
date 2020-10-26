@@ -18,3 +18,4 @@ package:
   command: npm ci && npm run skill
   tag: false
   # tag: default-branch-only
+kick: 0
