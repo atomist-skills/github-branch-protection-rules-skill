@@ -118,6 +118,6 @@
  {:gcf
   [{:name "github-branch-protection-rules-skill",
     :entryPoint "eventhandler",
-    :memory 2048,
+    :memory 1024,
     :runtime "nodejs10",
-    :timeout 540}]}}
+    :timeout 300}]}}
