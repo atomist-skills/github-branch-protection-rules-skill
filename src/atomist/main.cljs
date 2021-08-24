@@ -52,7 +52,7 @@
                          (when (:allow_force_pushes request) (select-keys request [:allow_force_pushes]))
                          (when (:allow_deletions request) (select-keys request [:allow_deletions]))))))))
 
-(defn converge-branch-rules 
+(defn converge-branch-rules
   "converge branch rules on one branch ref (in one repo)"
   [request]
   (go-safe
@@ -99,16 +99,16 @@
   (fn [request]
     (go-safe
      (<? (->> (for [[branch-ref n v] (-> request :subscription :result)
-                    :let [{:keys [owner repo branch] :as m} (->ref branch-ref)] ]
-                (go-safe 
-                  (log/infof "Updating %s to %s on branch %s of %s/%s" n v branch owner repo)
-                  (<? (converge-branch-rules (merge request m)))))
+                    :let [{:keys [owner repo branch] :as m} (->ref branch-ref)]]
+                (go-safe
+                 (log/infof "Updating %s to %s on branch %s of %s/%s" n v branch owner repo)
+                 (<? (converge-branch-rules (merge request m)))))
               (async/merge)
               (async/reduce conj [])))
      (<? (handler (assoc request
                          :atomist/status
                          {:code 0
-                          :reason (gstring/format "converged branch rules on config change")})))))) 
+                          :reason (gstring/format "converged branch rules on config change")}))))))
 
 (defn ^:export handler
   [data sendreponse]
