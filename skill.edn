@@ -14,7 +14,7 @@
 
 {:description "Share branch protection rules across Repos",
  :license "Apache 2.0",
- :displayName "File Indexer",
+ :displayName "GitHub Branch Protection Rules",
  :name "github-branch-protection-rules-skill",
  :author "jim@atomist.com",
  :maxConfigurations 1
