@@ -1,0 +1,18 @@
+[:find
+ (pull ?ref [:db/id
+             :git.ref/name
+             {:git.ref/repo [:git.repo/source-id
+                             :git.repo/name
+                             :git.provider/url
+                             {:git.repo/org [:github.org/installation-token
+                                             :git.org/name
+                                             :git.provider/url]}]}])
+ ?rule-name
+ ?rule-value
+ :in $ $before-db % ?ctx
+ :where
+ (config-tx ?ctx ?parameter)
+ [(untuple ?parameter) [?rule-name ?rule-value]]
+ [?ref :git.ref/type :git.ref.type/branch]
+ [?ref :git.ref/repo ?repo]
+ (skill-repo-selected? ?ctx ?repo)]
