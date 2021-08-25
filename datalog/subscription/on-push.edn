@@ -1,0 +1,15 @@
+[:find
+ (pull ?ref [:db/id
+             :git.ref/name
+             {:git.ref/repo [:git.repo/source-id
+                             :git.repo/name
+                             :git.provider/url
+                             {:git.repo/org [:github.org/installation-token
+                                             :git.org/name
+                                             :git.provider/url]}]}])
+ :in $ $before-db % ?ctx
+ :where
+ ;; already checks repo filter
+ (push-tx ?ctx ?commit ?ref)
+ ;; TODO could this also check the branch name pattern?
+ ]

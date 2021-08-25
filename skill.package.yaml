@@ -16,6 +16,5 @@ apiVersion: 1
 package:
   type: atomist/node-skill
   command: npm ci && npm run skill
-  tag: false
-  # tag: default-branch-only
-kick: 0
+  tag: default-branch-only
+kick: 1
